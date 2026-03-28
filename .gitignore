@@ -1,0 +1,4 @@
+# Ignora a pasta de dependências do Node
+/node_modules
+# Ignora o arquivo de variáveis de ambiente que contém a chave de API
+.env

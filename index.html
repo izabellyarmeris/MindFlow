@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindFlow - Clareza e Foco</title>
+    <link rel="stylesheet" href="st.css">
+</head>
+<body>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo-wrapper">
+                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <h1>MindFlow</h1>
+            </div>
+            <p class="subtitle">Seu assistente de IA para transformar caos em clareza.</p>
+        </header>
+
+        <main>
+            <div class="glass-card assistant-card">
+                <h2>Como posso te ajudar hoje?</h2>
+                <p class="card-desc">Cole uma lista de tarefas, um texto confuso ou o que estiver pesando na mente. O MindFlow organiza para você.</p>
+                
+                <textarea id="userInput" placeholder="Ex: Preciso entregar o relatório do estágio, estudar para a prova de Cloud, e não sei por onde começar..."></textarea>
+                
+                <button id="processButton">
+                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    Processar com a IA
+                </button>
+            </div>
+
+            <div class="glass-card settings-card">
+                <h3>⚙️ Preferências de Acessibilidade</h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="readingLevel">Nível de Leitura</label>
+                        <select id="readingLevel">
+                            <option value="simples">Simples e Direto</option>
+                            <option value="detalhado">Um pouco mais detalhado</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="focusSupport">Suporte ao Foco</label>
+                        <select id="focusSupport">
+                            <option value="pomodoro">Sugerir pausas (Pomodoro)</option>
+                            <option value="sem_pausas">Sem sugestão de pausas</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="outputArea" class="glass-card output-card" style="display: none;">
+                <div class="output-header">
+                    <h2>Seu Plano Simplificado</h2>
+                </div>
+                
+                <div id="loadingIndicator" style="display: none;">
+                    <div class="dots-container">
+                        <span>.</span><span>.</span><span>.</span>
+                    </div>
+                    <p class="loading-text">Processando sinapses digitais...</p>
+                </div>
+
+                <div id="simplifiedContent">
+                    </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 MindFlow. Desenvolvido para Hackathon.</p>
+        </footer>
+    </div>
+
+    <script src="site.js"></script>
+</body>
+</html>
