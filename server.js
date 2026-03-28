@@ -1,3 +1,4 @@
+require('dotenv').config(); // <-- ESSA LINHA PUXA A CHAVE ESCONDIDA
 const express = require('express');
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require("@google/generative-ai");
 const path = require('path');
@@ -8,8 +9,17 @@ const port = 3000;
 app.use(express.static(path.join(__dirname)));
 app.use(express.json());
 
-// SUA CHAVE VALIDADA
-const API_KEY = "AIzaSyDzoBDylgPx_3URZ2ipHu5hbrW3cMfTFYs";
+// PEGANDO A CHAVE DO ARQUIVO .ENV (SEGURO PARA O GITHUB)
+const API_KEY = process.env.GEMINI_API_KEY;
+
+// Trava de segurança: se a chave não estiver no .env, o servidor avisa antes de quebrar
+if (!API_KEY) {
+    console.error("\n🚨 ERRO CRÍTICO: Chave da API não encontrada!");
+    console.error("Verifique se o arquivo .env existe na sua pasta e contém a linha:");
+    console.error("GEMINI_API_KEY=sua_nova_chave_aqui\n");
+    process.exit(1);
+}
+
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 app.post('/process', async (req, res) => {
@@ -18,7 +28,6 @@ app.post('/process', async (req, res) => {
         
         const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-        // AGORA ELAS ESTÃO ATIVAS: Configuração para não bloquear palavras sensíveis
         const safetySettings = [
             { category: HarmCategory.HARM_CATEGORY_HARASSMENT, threshold: HarmBlockThreshold.BLOCK_NONE },
             { category: HarmCategory.HARM_CATEGORY_HATE_SPEECH, threshold: HarmBlockThreshold.BLOCK_NONE },
@@ -38,7 +47,6 @@ app.post('/process', async (req, res) => {
             4. Se 'focusSupport' for 'pomodoro', inclua uma task sugerindo 5 minutos de pausa.
         `;
 
-        // Passando a configuração de segurança junto com o texto
         const result = await model.generateContent({
             contents: [{ role: "user", parts: [{ text: prompt }] }],
             safetySettings,
@@ -62,6 +70,7 @@ app.post('/process', async (req, res) => {
 
 app.listen(port, () => {
     console.log(`\n🚀 MINDFLOW PRONTO PARA O HACKATHON!`);
+    console.log(`🔒 Modo Seguro: Chave oculta no .env`);
     console.log(`🧠 Rodando com o motor Gemini 2.5 Flash`);
     console.log(`🔗 Acesse: http://localhost:${port}\n`);
 });
